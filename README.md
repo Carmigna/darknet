@@ -749,7 +749,8 @@ public:
 import glob
 import oscurrent_dir = # PATH TO IMAGE DIRECTORY
 # Percentage of images to be used for the valid set
-percentage_test = 10;# Create train.txt and valid.txt
+percentage_test = 10;
+# Create train.txt and valid.txt
 file_train = open('train.txt', 'w')  
 file_test = open('valid.txt', 'w')
 # Populate train.txt and valid.txt
@@ -765,6 +766,6 @@ for file in glob.iglob(os.path.join(current_dir, '*.jpg')):
         counter = counter + 1
 ```
 as in:https://medium.com/@anirudh.s.chakravarthy/training-yolov3-on-your-custom-dataset-19a1abbdaf09
-5.Train
-6.Test
-7.Yummy yummy plots!
+5. Train
+6. Test
+7. Yummy yummy plots!
