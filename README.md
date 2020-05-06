@@ -1,7 +1,8 @@
-#Clusters detection and identification in LKr (Liquid Krypton Calorimeter) for NA62 experiment at CERN
+# Clusters detection and identification in LKr (Liquid Krypton Calorimeter) for NA62 experiment at CERN
+### Yolo-v4 trained from scratch on NA62 2017 LKr clusters data
+### Intel's cvat was used for annotations
 
-
-
+The tutorial below is an awsome walkthrough in the Darknet realm!
 
 
 -----------------------------------------------------------------------------------------------------------------------------
