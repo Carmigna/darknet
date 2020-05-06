@@ -738,3 +738,33 @@ public:
 #endif
 };
 ```
+-----------------------------------------------------------------------------------------------------------------------------
+
+## Preparing the clusters data
+1. Export the annotated dataset from cvat in yolo format.
+2. Follow AlexeyAB tutorial to compile Darknet
+3. Adjust the configuration file "yolo-obj.cfg" accordingly, e.g with number of classes in my case "3" (single, merged and unknown). Filters (3+5)*3 where 5 for 4 coordnates and 1 mask times RGB
+4. I chose to create a test set containing 10% of the images in the dataset. Run the following Python script from the data directory:
+```
+import glob
+import oscurrent_dir = # PATH TO IMAGE DIRECTORY
+# Percentage of images to be used for the valid set
+percentage_test = 10;# Create train.txt and valid.txt
+file_train = open('train.txt', 'w')  
+file_test = open('valid.txt', 'w')
+# Populate train.txt and valid.txt
+counter = 1  
+index_test = round(100 / percentage_test)  
+for file in glob.iglob(os.path.join(current_dir, '*.jpg')):  
+    title, ext = os.path.splitext(os.path.basename(file))
+    if counter == index_test:
+        counter = 1
+        file_test.write(current_dir + "/" + title + '.jpg' + "\n")
+    else:
+        file_train.write(current_dir + "/" + title + '.jpg' + "\n")
+        counter = counter + 1
+```
+as in:https://medium.com/@anirudh.s.chakravarthy/training-yolov3-on-your-custom-dataset-19a1abbdaf09
+5.Train
+6.Test
+7.Yummy yummy plots!
