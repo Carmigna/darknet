@@ -747,7 +747,8 @@ public:
 4. I chose to create a test set containing 10% of the images in the dataset. Run the following Python script from the data directory:
 ```
 import glob
-import oscurrent_dir = # PATH TO IMAGE DIRECTORY
+import os
+current_dir = # PATH TO IMAGE DIRECTORY
 # Percentage of images to be used for the valid set
 percentage_test = 10;
 # Create train.txt and valid.txt
