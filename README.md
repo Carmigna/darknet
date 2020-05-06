@@ -765,7 +765,8 @@ for file in glob.iglob(os.path.join(current_dir, '*.jpg')):
         file_train.write(current_dir + "/" + title + '.jpg' + "\n")
         counter = counter + 1
 ```
-as in:https://medium.com/@anirudh.s.chakravarthy/training-yolov3-on-your-custom-dataset-19a1abbdaf09
+   as in:https://medium.com/@anirudh.s.chakravarthy/training-yolov3-on-your-custom-dataset-19a1abbdaf09
+
 5. Train
 6. Test
 7. Yummy yummy plots!
