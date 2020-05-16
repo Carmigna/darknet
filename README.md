@@ -772,5 +772,5 @@ for file in glob.iglob(os.path.join(current_dir, '*.jpg')):
 6. Test
 7. Yummy yummy plots!
 
-|  ![yolo clusters](https://github.com/Carmigna/darknet/results/chart.png) | &nbsp; ![readme](https://github.com/Carmigna/darknet/results/predictions145.jpg) yolov4 clusters 2 classes (single, merged) 2 runs (2017A 8134 8136) GPU (GeForce GTX) MaP at 92% |
+|  ![yolo clusters](https://github.com/Carmigna/darknet/chart.png) | &nbsp; ![readme](https://github.com/Carmigna/darknet/predictions145.jpg) yolov4 clusters 2 classes (single, merged) 2 runs (2017A 8134 8136) GPU (GeForce GTX) MaP at 92% |
 |---|---|
