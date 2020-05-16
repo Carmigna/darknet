@@ -772,3 +772,5 @@ for file in glob.iglob(os.path.join(current_dir, '*.jpg')):
 6. Test
 7. Yummy yummy plots!
 
+|  ![yolo_clusters_2classes_8134_8136_GPU_MaP92%](http://github.com/Carmigna/results/chart.png) | &nbsp; ![readme](http://github.com/Carmigna/results/predictions145.jpg) [yolov4_clusters_2classes_8134_8136_GPU_MaP92% |
+|---|---|
