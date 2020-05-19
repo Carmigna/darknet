@@ -2,7 +2,7 @@
 ### Yolo-v4 trained from scratch on NA62 2017 LKr clusters data
 ### Intel's cvat was used for annotations
 
-The tutorial below is an awsome walkthrough in the Darknet realm! but before let get this GPU up to it's potentials.
+The tutorial below is an awsome walkthrough in the Darknet realm! but before let's get that GPU up to it's potentials.
 ---------------------------------------------------------------------------------------------------------------------------
 ### In order to use the GPU version of YOLOv4, you will need an NVIDIA GPU with a compute capability > 3.0. Check the GPU consistency with the latest nvidia driver as well.
 
