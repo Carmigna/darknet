@@ -50,17 +50,15 @@ The tutorial below is an awsome walkthrough in the Darknet realm! but before let
 	sudo apt-get autoclean
 	sudo rm -rf /usr/local/cuda*
 
-	sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
-	echo "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /" | sudo tee /etc/ap/sources.list.d/cuda.list
-	sudo apt-get update 
-	sudo apt-get -o Dpkg::Options::="--force-overwrite" install cuda-10-2 cuda-drivers
-## or
-	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
-	sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
-	sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
-	sudo add-apt-repository "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/ /"
-	sudo apt-get update
-	sudo apt-get -y install cuda
+	apt-get --purge remove "*cublas*" "cuda*"
+        reboot
+        wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
+        sudo dpkg -i cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
+        sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+        apt install cuda-10-2
+        reboot
+
+
 
 	sudo modprobe -r nouveau
 	sudo modprobe -i nvidia
