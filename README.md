@@ -45,20 +45,23 @@ The tutorial below is an awsome walkthrough in the Darknet realm! but before let
 	sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 20
 	sudo update-alternatives --set g++ /usr/bin/g++-6
 
-	sudo apt-get purge nvidia*
-	sudo apt-get autoremove
-	sudo apt-get autoclean
+	
 	sudo rm -rf /usr/local/cuda*
 
 	apt-get --purge remove "*cublas*" "cuda*"
-       reboot
-       sudo add-apt-repository ppa:graphics-drivers/ppa
-       sudo apt update
-       sudo apt install nvidia-driver-440
+       
+      
        wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
        sudo dpkg -i cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
        sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
        apt install cuda-10-2
+## to downgrade from nvidia-driver450 to 440
+       sudo apt-get purge nvidia*
+       sudo apt-get autoremove
+       sudo apt-get autoclean
+       sudo add-apt-repository ppa:graphics-drivers/ppa
+       sudo apt update
+       sudo apt install nvidia-driver-440
        reboot
 
 
