@@ -6,6 +6,7 @@ The tutorial below is an awsome walkthrough in the Darknet realm! but before let
 ---------------------------------------------------------------------------------------------------------------------------
 ### In order to use the GPU version of YOLOv4, you will need an NVIDIA GPU with a compute capability > 3.0. Check the GPU consistency with the latest nvidia driver as well.
 
+
 # Step 1: Update and Upgrade your system:
 
 	sudo apt-get update 
@@ -33,7 +34,7 @@ The tutorial below is an awsome walkthrough in the Darknet realm! but before let
 
 	sudo apt-get install linux-headers-$(uname -r)
 
-# Step 6: Install NVIDIA CUDA 10.2:
+# Step 6: Install NVIDIA CUDA 11:
 
 	sudo apt install build-essential gcc-6 g++-6
 	sudo update-alternatives --remove-all gcc
@@ -45,33 +46,29 @@ The tutorial below is an awsome walkthrough in the Darknet realm! but before let
 	sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 20
 	sudo update-alternatives --set g++ /usr/bin/g++-6
 
-	
+	sudo apt-get purge nvidia*
+	sudo apt-get autoremove
+	sudo apt-get autoclean
 	sudo rm -rf /usr/local/cuda*
 
-	apt-get --purge remove "*cublas*" "cuda*"
-       
-      
-       wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
-       sudo dpkg -i cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
-       sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
-       apt install cuda-10-2
-## to downgrade from nvidia-driver450 to 440
-       sudo apt-get purge nvidia*
-       sudo apt-get autoremove
-       sudo apt-get autoclean
-       sudo add-apt-repository ppa:graphics-drivers/ppa
-       sudo apt update
-       sudo apt install nvidia-driver-440
-       reboot
-
-
+	sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+	echo "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /" | sudo tee /etc/ap/sources.list.d/cuda.list
+	sudo apt-get update 
+	sudo apt-get -o Dpkg::Options::="--force-overwrite" install cuda-11-0 cuda-drivers
+## or
+	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
+	sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
+	sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+	sudo add-apt-repository "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/ /"
+	sudo apt-get update
+	sudo apt-get -y install cuda
 
 	sudo modprobe -r nouveau
 	sudo modprobe -i nvidia
 
 ## set system wide paths
 	echo 'PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/cuda/bin"' | sudo tee /etc/environment
-	echo /usr/local/cuda-10.2/lib64 | sudo tee /etc/ld.so.conf.d/cuda-10.2.conf
+	echo /usr/local/cuda-11.0/lib64 | sudo tee /etc/ld.so.conf.d/cuda-11.0.conf
 	sudo ldconfig
 
 # Step 7: Reboot the system to load the NVIDIA drivers.
@@ -80,16 +77,16 @@ The tutorial below is an awsome walkthrough in the Darknet realm! but before let
 
 # Step 8: Go to terminal and type:
 
-	echo 'export PATH=/usr/local/cuda-10.2/bin${PATH:+:${PATH}}' >> ~/.bashrc
-	echo 'export LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}' >> ~/.bashrc
+	echo 'export PATH=/usr/local/cuda-11.0/bin${PATH:+:${PATH}}' >> ~/.bashrc
+	echo 'export LD_LIBRARY_PATH=/usr/local/cuda-11.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}' >> ~/.bashrc
 	source ~/.bashrc
 	sudo ldconfig
 
 ## test your graphics OKAY for nvidia FAIL for nouveau:
 	lsmod | grep nouv && echo FAIL || echo OKAY
 	lsmod | grep nvid && echo OKAY || echo FAIL
-	grep -E 'NVIDIA.*440.[0-9]+' /proc/driver/nvidia/version &>/dev/null && echo OKAY || echo FAIL
-	nvcc -V | grep -E "V10.2.[0-9]+" &>/dev/null && echo OKAY || echo FAIL
+	grep -E 'NVIDIA.*450.[0-9]+' /proc/driver/nvidia/version &>/dev/null && echo OKAY || echo FAIL
+	nvcc -V | grep -E "V11.0.[0-9]+" &>/dev/null && echo OKAY || echo FAIL
 
 ## this should return stats for all installed cards
     nvidia-smi
@@ -98,28 +95,35 @@ The tutorial below is an awsome walkthrough in the Darknet realm! but before let
 
 ## You can check your cuda installation using following sample:
 
-	cuda-install-samples-10.2.sh ~
-	cd ~/NVIDIA_CUDA-10.2_Samples/5_Simulations/nbody
+	cuda-install-samples-11.0.sh ~
+	cd ~/NVIDIA_CUDA-11.0_Samples/5_Simulations/nbody
 	make
 	./nbody
 
 ## Quite COOL right!!! try the other simulations also, it makes you appreciate your NVIDIA GPU if you're not into Vgames.
 ## Now let's get down to business...
 
-# Step 9: Install cuDNN 7.6.5:
+# Step 9: Install cuDNN 8.0.1:
 
 
  ### Go to: NVIDIA cuDNN home page. https://developer.nvidia.com/cudnn
- ### Click Download. get cudnn-10.2-linux-x64-v7.6.5.32.tgz
+ ### Click Download. get cudnn-11.0-linux-x64-v8.0.1.13.tgz
  ### Complete the short survey and click Submit.
  ### Accept the Terms and Conditions. A list of available download versions of cuDNN displays.
  ### Select the cuDNN version you want to install. A list of available resources displays.
 
 ## Go to downloaded folder and in terminal perform following:
-	tar -xzvf cudnn-10.2-linux-x64-v7.6.5.32.tgz
+	tar -xzvf cudnn-11.0-linux-x64-v8.0.1.13.tgz
 	sudo cp cuda/include/cudnn.h /usr/local/cuda/include
 	sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64
 	sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
+
+### (Next step is not essential since it can be defaulted in the Build later to NCCL1.3) 
+### Do the same for NCCL: NVIDIA Collective Communications Library (NCCL) implements multi-GPU and multi-node collective communication primitives that are performance optimized for NVIDIA GPUs. Get nccl_###+cuda11.0_x86_64.txz
+	tar -xf nccl_###-#+cuda11.0_x86_64.txz
+	cd nccl_###-#+cuda11.0_x86_64
+	sudo cp -R * /usr/local/cuda-11.0/targets/x86_64-linux/
+	sudo ldconfig
 
 
 -----------------------------------------------------------------------------------------------------------------------------
